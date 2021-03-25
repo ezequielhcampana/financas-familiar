@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Exclusão de Plano de Conta</h2>
+<div mat-dialog-content>
+  <p>Plano de Conta: <strong>{{ data.descr }}</strong></p>
+    <p>Confirma a exclusão?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]=false>Cancelar</button>
+  <button mat-button [mat-dialog-close]=true cdkFocusInitial>Confirmar</button>
+</div>

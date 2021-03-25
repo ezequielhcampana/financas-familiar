@@ -1,0 +1,80 @@
+<mat-toolbar>
+    <mat-icon>format_list_bulleted</mat-icon>
+    <span class="margem-esq-5">Plano de Contas</span>
+</mat-toolbar>
+
+<mat-tab-group>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon>list</mat-icon> Listagem
+        </ng-template>
+
+        <mat-card>
+            <table mat-table [dataSource]="planoContas" class="full-width">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef>ID</th>
+                    <td mat-cell *matCellDef="let pc">{{ pc.id }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="descricaoPlano">
+                    <th mat-header-cell *matHeaderCellDef>Descrição Plano</th>
+                    <td mat-cell *matCellDef="let pc">{{ pc.descricaoPlano }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="tpConta">
+                    <th mat-header-cell *matHeaderCellDef>Tipo Conta</th>
+                    <td mat-cell *matCellDef="let pc">{{ pc.tpConta }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="btnEditar">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let pc">
+                        <button mat-raised-button color="accent">
+                            <mat-icon>mode_edit</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="btnExcluir">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let pc">
+                        <button mat-raised-button color="warn" (click)="openDialogExcluir(pc)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="colunas"></tr>
+                <tr mat-row *matRowDef="let myRowData; columns: colunas"></tr>
+            </table>
+        </mat-card>
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon>add_task</mat-icon> 
+            Cadastro
+        </ng-template>
+
+        <mat-card class="half-width">
+            <mat-card-subtitle><strong>Adicionar Plano de Conta</strong></mat-card-subtitle>
+            <form autocomplete="off" [formGroup]="formPlanoConta" (ngSubmit)="submit()">
+                <mat-form-field class="full-width">
+                    <mat-label>Descrição Plano:</mat-label>
+                    <input formControlName="descricaoPlano" matInput placeholder="Digite um plano de conta" />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Tipo Conta</mat-label>
+                    <mat-select formControlName="tpConta" matSelect>
+                        <mat-option value="D">DESPESA</mat-option>
+                        <mat-option value="R">RECEITA</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <br />
+                <button mat-raised-button color="primary">Adicionar</button>
+            </form>
+        </mat-card>
+    </mat-tab>
+</mat-tab-group>

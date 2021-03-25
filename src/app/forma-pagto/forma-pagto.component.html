@@ -1,0 +1,71 @@
+<mat-toolbar>
+    <mat-icon>payments</mat-icon>
+    <span class="margem-esq-5">Formas de Pagamento</span>
+</mat-toolbar>
+
+<mat-tab-group>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon>list</mat-icon> Listagem
+        </ng-template>
+
+        <mat-card>
+            <table mat-table [dataSource]="formasPagtos" class="full-width">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef>ID</th>
+                    <td mat-cell *matCellDef="let fp">{{ fp.id }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="descricaoForma">
+                    <th mat-header-cell *matHeaderCellDef>Descrição</th>
+                    <td mat-cell *matCellDef="let fp">{{ fp.descricaoForma }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="btnEditar">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let fp">
+                        <button mat-raised-button color="accent">
+                            <mat-icon>mode_edit</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="btnExcluir">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let fp">
+                        <button mat-raised-button color="warn" (click)="openDialogExcluir(fp)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="colunas"></tr>
+                <tr mat-row *matRowDef="let myRowData; columns: colunas"></tr>
+            </table>
+        </mat-card>
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon>add_task</mat-icon>
+            Cadastro
+        </ng-template>
+
+        <mat-card class="half-width">
+            <mat-card-title>Adicionar Forma Pagamento</mat-card-title>
+            <form autocomplete="off" [formGroup]="formFormaPagto" (ngSubmit)="submit()">
+                <mat-form-field class="full-width">
+                    <mat-label>Descrição:</mat-label>
+                    <input formControlName="descricaoForma" matInput placeholder="Digite a descrição" />                    
+                </mat-form-field>
+                <div *ngIf="formFormaPagto.controls.descricaoForma.errors">
+                    <div *ngIf="formFormaPagto.controls.descricaoForma.errors.required">
+                        O campo descrição é obrigatório!
+                    </div>
+                </div>
+
+                <button mat-button color="primary">Adicionar</button>
+            </form>
+        </mat-card>
+    </mat-tab>
+</mat-tab-group>
